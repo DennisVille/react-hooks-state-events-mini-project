@@ -1,9 +1,18 @@
-import React from "react";
+import React, {useState} from "react";
+import Task from "./Task";
 
-function TaskList() {
+function TaskList({tasks}) {
+  const [taskState, setTaskState] = useState(tasks);
+  function handleDelete(taskIndex){
+    setTaskState((prevTasks) => prevTasks.filter((task, index) =>index !== taskIndex));
+  }
+  const tasksArray = taskState.map((task, index) => 
+    (<Task key = {index} task = {task} onDelete = {() => handleDelete(index)}/>)
+    );
+  console.log(taskState);
   return (
     <div className="tasks">
-      {/* display a list of tasks using Task component */}
+      {tasksArray}
     </div>
   );
 }
